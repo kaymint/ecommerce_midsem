@@ -1,0 +1,54 @@
+
+{% extends "sample.html.twig" %}
+
+{% block PAGER %}
+
+{% endblock %}
+
+{% block PAGINATION %}
+
+{% endblock %}
+
+{% block CONTENT %}
+<section>
+    <p>Click one of the buttons below to see a <strong>modal dialog</strong>:</p>
+    <div class="mockup-content">
+        <p>Pea horseradish azuki bean lettuce avocado asparagus okra.</p>
+        <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
+            <button type="button">Login</button>
+            <div class="morph-content">
+                <div>
+                    <div class="content-style-form content-style-form-1">
+                        <span class="icon icon-close">Close the dialog</span>
+                        <h2>Login</h2>
+                        <form>
+                            <p><label>Email</label><input type="text" /></p>
+                            <p><label>Password</label><input type="password" /></p>
+                            <p><button>Login</button></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- morph-button -->
+        <strong class="joiner">or</strong>
+        <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
+            <button type="button">Signup</button>
+            <div class="morph-content">
+                <div>
+                    <div class="content-style-form content-style-form-2">
+                        <span class="icon icon-close">Close the dialog</span>
+                        <h2>Sign Up</h2>
+                        <form>
+                            <p><label>Email</label><input type="text" /></p>
+                            <p><label>Password</label><input type="password" /></p>
+                            <p><label>Repeat Password</label><input type="password" /></p>
+                            <p><button>Sign Up</button></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- morph-button -->
+        <p>Kohlrabi radish okra azuki bean corn fava bean mustard tigernut juccama green bean celtuce collard greens avocado quandong.</p>
+    </div><!-- /form-mockup -->
+</section>
+{% endblock %}

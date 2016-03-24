@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueprint: Product Comparison Layout &amp; Effect</title>
+    <meta name="description" content="Blueprint: A basic responsive product grid layout with comparison functionality" />
+    <meta name="keywords" content="blueprint, template, html, css, javascript, grid, layout, effect, product comparison" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min2.css"/>
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo1.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel="stylesheet" type="text/css" href="css/component1.css" />
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/content.css" />
+    <script src="js/modernizr.custom.js"></script>
+    <script src="js/modernizr.custom1.js"></script>
+
+    <!-- Modernizr is used for flexbox fallback -->
+
+</head>
+<body>
+<!-- Compare basket -->
+<div class="compare-basket">
+    <button class="action action--button action--compare"><i class="fa fa-check"></i><span class="action__text">Compare</span></button>
+</div>
+<!-- Main view -->
+<div class="view">
+    <!-- Blueprint header -->
+    <header class="bp-header cf">
+        {% block LOGO %}
+        <span>Blueprint <span class="bp-icon bp-icon-about" data-content="The Blueprints are a collection of basic and minimal website concepts, components, plugins and layouts with minimal style for easy adaption and usage, or simply for inspiration."></span></span>
+        {% endblock %}
+
+
+        {% block HEADING %}
+        <h1>Wine Comparison Layout</h1>
+        {% endblock %}
+
+        {% block PAGER %}
+        <nav>
+            <a href="http://tympanus.net/Blueprints/GridGallery/" class="bp-icon bp-icon-prev" data-info="previous Blueprint"><span>Previous Blueprint</span></a>
+            <!--a href="" class="bp-icon bp-icon-next" data-info="next Blueprint"><span>Next Blueprint</span></a-->
+            <a href="http://tympanus.net/codrops/?p=24096" class="bp-icon bp-icon-next" data-info="next Page"><span>back to the Codrops article</span></a>
+        </nav>
+        {% endblock %}
+    </header>
+
+    {% block CONTENT %}
+
+
+    {% block BODY %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Jumbotron</h1>
+            <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+        </div>
+    </div>
+    {% endblock %}
+
+    <!-- Product grid -->
+    <section class="grid">
+        <!-- Products -->
+        {% for x in wines %}
+        <div class="product">
+            <div class="product__info">
+                <img class="product__image" src="images/1.png" alt="Product 1" />
+                <h3 class="product__title">{{ x.wine_name}}</h3>
+                <span class="product__year extra highlight">{{ x.year}}</span>
+                <span class="product__region extra highlight">{{ x.wine_type}}</span>
+                <span class="product__varietal extra highlight">{{ x.winery_name}}</span>
+                <span class="product__alcohol extra highlight">13%</span>
+                <span class="product__price highlight">${{ x.cost}}</span>
+                <button class="action action--button action--buy"><i class="fa fa-shopping-cart"></i><span class="action__text">Add to cart</span></button>
+            </div>
+            <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+        </div>
+        {% endfor %}
+    </section>
+    {% endblock %}
+
+
+    <div class="container">
+    {% block PAGINATION %}
+        <div class='panel-footer'>
+            {% if totalPages > 0 %}
+            <ul class='pagination pagination-lg' id="pagination">
+                {#{% for i in 1..totalPages %}#}
+
+                {#{% if loop.first %}#}
+                {% if page == 1 %}
+                <li class="prev disabled">
+                    <a>
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li class="prev disabled">
+                    <a>
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="prev">
+                    <a href='index.php?page={{ 1 }}'>
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li class="prev">
+                    <a href='index.php?page={{ page - 1 }}'>
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </li>
+                {% endif %}
+                </ul>
+                {#{% endif %}#}
+
+                <ul class="pagination pagination-lg">
+                {% for i in page..page+4 %}
+                    {% if i >= 1 and i <= totalPages %}
+                    <li class="prev">
+                        <a href='index.php?page={{ i}}'>
+                            {{ i }}
+                        </a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+
+                {#{% if loop.last %}#}
+                <ul class="pagination pagination-lg">
+                {% if page == totalPages %}
+                <li class="next disabled">
+                    <a>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+                <li class="next disabled">
+                    <a>
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </li>
+                {% else %}
+
+                <li class="next">
+                    <a href='index.php?page={{ page + 1 }}'>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+                <li class="next">
+                    <a href='index.php?page={{ totalPages }}'>
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+                    </ul>
+                {#{% endif %}#}
+
+                {#{% endfor %}#}
+            </ul>
+            {% endif %}
+
+
+            <div class='pull-right' id="paginationResult">
+                Page <a>{{ page }}</a> out of <a>{{ totalPages }}</a>
+            </div>
+        </div>
+    {% endblock %}
+    </div>
+</div><!-- /view -->
+<!-- product compare wrapper -->
+<section class="compare">
+    <button class="action action--close"><i class="fa fa-remove"></i><span class="action__text action__text--invisible">Close comparison overlay</span></button>
+</section>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/classie1.js"></script>
+<script src="js/main.js"></script>
+<script src="js/uiMorphingButton_fixed.js"></script>
+<script>
+    (function() {
+        var docElem = window.document.documentElement, didScroll, scrollPosition;
+
+        // trick to prevent scrolling when opening/closing button
+        function noScrollFn() {
+            window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
+        }
+
+        function noScroll() {
+            window.removeEventListener( 'scroll', scrollHandler );
+            window.addEventListener( 'scroll', noScrollFn );
+        }
+
+        function scrollFn() {
+            window.addEventListener( 'scroll', scrollHandler );
+        }
+
+        function canScroll() {
+            window.removeEventListener( 'scroll', noScrollFn );
+            scrollFn();
+        }
+
+        function scrollHandler() {
+            if( !didScroll ) {
+                didScroll = true;
+                setTimeout( function() { scrollPage(); }, 60 );
+            }
+        };
+
+        function scrollPage() {
+            scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+            didScroll = false;
+        };
+
+        scrollFn();
+
+        [].slice.call( document.querySelectorAll( '.morph-button' ) ).forEach( function( bttn ) {
+            new UIMorphingButton( bttn, {
+                closeEl : '.icon-close',
+                onBeforeOpen : function() {
+                    // don't allow to scroll
+                    noScroll();
+                },
+                onAfterOpen : function() {
+                    // can scroll again
+                    canScroll();
+                },
+                onBeforeClose : function() {
+                    // don't allow to scroll
+                    noScroll();
+                },
+                onAfterClose : function() {
+                    // can scroll again
+                    canScroll();
+                }
+            } );
+        } );
+
+        // for demo purposes only
+        [].slice.call( document.querySelectorAll( 'form button' ) ).forEach( function( bttn ) {
+            bttn.addEventListener( 'click', function( ev ) { ev.preventDefault(); } );
+        } );
+    })();
+</script>
+</body>
+</html>

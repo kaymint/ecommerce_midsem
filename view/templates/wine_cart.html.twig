@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueprint: Product Comparison Layout &amp; Effect</title>
+    <meta name="description" content="Blueprint: A basic responsive product grid layout with comparison functionality" />
+    <meta name="keywords" content="blueprint, template, html, css, javascript, grid, layout, effect, product comparison" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min2.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/demo.css" />
+    {#<link rel="stylesheet" type="text/css" href="../css/demo1.css" />#}
+    <link rel="stylesheet" type="text/css" href="../css/component.css" />
+    <link rel="stylesheet" type="text/css" href="../css/component1.css" />
+
+    <link rel="stylesheet" type="text/css" href="../css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../css/checkout_normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../css/content.css" />
+    <link rel="stylesheet" type="text/css" href="../css/checkout-boxes.css" />
+    {#<link rel="stylesheet" type="text/css" href="../css/checkout.css" />#}
+
+    <script src="../js/modernizr.custom.js"></script>
+    <script src="../js/modernizr.custom1.js"></script>
+
+    <!-- Modernizr is used for flexbox fallback -->
+
+</head>
+<body>
+<!-- Compare basket -->
+<div class="compare-basket">
+    <button class="action action--button action--compare"><i class="fa fa-check"></i><span class="action__text">Compare</span></button>
+</div>
+<!-- Main view -->
+<div class="view">
+    <!-- Blueprint header -->
+    {% block NAVBAR %}
+
+        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+            <div class="container">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class=" dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <span class="fa fa-shopping-cart"></span>
+                                <span class="badge">{{ cart_items }}</span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                {#<li class="divider"></li>#}
+                                {#{% for i in cart %}#}
+                                    {#<li><a href="#">{{ i }}#}
+                                        {#<span class="pull-right">#}
+                                        {#<a href="wine_cart.php?page={{ page }}&minus={{ i }}" style="color: white;">#}
+                                        {#<span class="fa fa-cart-arrow-down" ></span>#}
+                                            {#<em>Remove From Cart</em>#}
+                                        {#</a>#}
+                                        {#</span>#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li class="divider"></li>#}
+                                {#{% else %}#}
+                                    {#<li><em>no item in cart</em></li>#}
+                                {#{% endfor %}#}
+
+                                <li>
+                                    <a href="wine_cart.php?page={{ page }}&func=empty">
+                                        <span class="fa fa-trash-o"></span>
+                                        <em>Empty Cart</em>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="wine_cart.php?page={{ page }}&checkout=checkout">
+                                        <span class="fa fa-shopping-cart"></span>
+                                        <em>Checkout</em>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa fa-"></span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </nav>
+
+    {% endblock %}
+
+    <header class="bp-header cf">
+        {% block LOGO %}
+        <span>Blueprint <span class="bp-icon bp-icon-about" data-content="The Blueprints are a collection of basic and minimal website concepts, components, plugins and layouts with minimal style for easy adaption and usage, or simply for inspiration."></span></span>
+        {% endblock %}
+
+
+        {% block HEADING %}
+        <h1>Wine Comparison Layout</h1>
+        {% endblock %}
+
+        {% block PAGER %}
+        <nav>
+            <a href="http://tympanus.net/Blueprints/GridGallery/" class="bp-icon bp-icon-prev" data-info="previous Blueprint"><span>Previous Blueprint</span></a>
+            <!--a href="" class="bp-icon bp-icon-next" data-info="next Blueprint"><span>Next Blueprint</span></a-->
+            <a href="http://tympanus.net/codrops/?p=24096" class="bp-icon bp-icon-next" data-info="next Page"><span>back to the Codrops article</span></a>
+        </nav>
+        {% endblock %}
+    </header>
+
+    <div class="container">
+        {% block PAGINATION %}
+            <div class='panel-footer'>
+                {% if totalPages > 0 %}
+                    <ul class='pagination pagination-lg' id="pagination">
+                        {#{% for i in 1..totalPages %}#}
+
+                        {#{% if loop.first %}#}
+                        {% if page == 1 %}
+                            <li class="prev disabled">
+                                <a>
+                                    <i class="fa fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li class="prev disabled">
+                                <a>
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="prev">
+                                <a href='wine_cart.php?page={{ 1 }}'>
+                                    <i class="fa fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li class="prev">
+                                <a href='wine_cart.php?page={{ page - 1 }}'>
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    {#{% endif %}#}
+
+                    <ul class="pagination pagination-lg">
+                        {% for i in page..page+4 %}
+                            {% if i >= 1 and i <= totalPages %}
+                                <li class="prev">
+                                    <a href='wine_cart.php?page={{ i}}'>
+                                        {{ i }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                    {#{% if loop.last %}#}
+                    <ul class="pagination pagination-lg">
+                        {% if page == totalPages %}
+                            <li class="next disabled">
+                                <a>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li class="next disabled">
+                                <a>
+                                    <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        {% else %}
+
+                            <li class="next">
+                                <a href='wine_cart.php?page={{ page + 1 }}'>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li class="next">
+                                <a href='wine_cart.php?page={{ totalPages }}'>
+                                    <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    {#{% endif %}#}
+
+                    {#{% endfor %}#}
+                    </ul>
+                {% endif %}
+
+
+                <div class='pull-right' id="paginationResult">
+                    Page <a>{{ page }}</a> out of <a>{{ totalPages }}</a>
+                </div>
+            </div>
+        {% endblock %}
+
+
+    </div>
+
+    {% block CONTENT %}
+
+
+    {#{% block BODY %}#}
+    {#<div class="container">#}
+        {#<div class="jumbotron">#}
+            {#<h1>Jumbotron</h1>#}
+            {#<p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>#}
+            {#<p><a class="btn btn-primary btn-lg">Learn more</a></p>#}
+        {#</div>#}
+    {#</div>#}
+    {#{% endblock %}#}
+
+    <!-- Product grid -->
+    <section class="grid">
+        <!-- Products -->
+        {% for x in wines %}
+        <div class="product">
+            <div class="product__info">
+                <img class="product__image" src="../images/1.png" alt="Product 1" />
+                <h3 class="product__title">{{ x.wine_name}}</h3>
+                <span class="product__year extra highlight">{{ x.year}}</span>
+                <span class="product__region extra highlight">{{ x.wine_type}}</span>
+                <span class="product__varietal extra highlight">{{ x.winery_name}}</span>
+                <span class="product__alcohol extra highlight">13%</span>
+                <span class="product__price highlight">${{ x.cost}}</span>
+                <a class="action action--button action--buy"
+                   href="wine_cart.php?page={{ page }}&id={{ x.wine_id }}">
+                    <i class="fa fa-shopping-cart">
+                    </i><span class="action__text">Add to cart</span>
+                </a>
+            </div>
+            <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+        </div>
+        {% endfor %}
+    </section>
+    {% endblock %}
+
+    <div class="container">
+
+        <div class="col-md-6">
+    {%  block CARTTABLE %}
+        <h1>Cart With IDS</h1>
+        <table class="table ">
+            <thead>
+            <tr>
+                <th>Wine</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i,j in cart %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ j }}
+                        <span class="pull-right">
+                            <a href="wine_cart.php?page={{ page }}&id={{ i }}"><span class="fa fa-plus"></span></a>
+                            <a href="wine_cart.php?page={{ page }}&func=decrease&wine={{ i }}"><span class="fa fa-minus"></span></a>
+                            <a href="wine_cart.php?page={{ page }}&minus={{ i }}"><span class="fa fa-trash-o"></span></a>
+                        </span>
+                    </td>
+                    <td>GHS0.00</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endblock %}
+        </div>
+
+        <div class="col-md-6">
+        {%  block CARTTABLE2 %}
+            <h1>Cart With Full details</h1>
+            <table class="table ">
+                <thead>
+                <tr>
+                    <th>Wine</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in cart_full %}
+                    <tr>
+                        <td>{{ i.wine_name }}</td>
+                        <td>{{ i.count }}
+                            <span class="pull-right">
+                            <a href="wine_cart.php?page={{ page }}&id={{ i.wine_id }}"><span class="fa fa-plus"></span></a>
+                            <a href="wine_cart.php?page={{ page }}&func=decrease&wine={{ i.wine_id }}"><span class="fa fa-minus"></span></a>
+                            <a href="wine_cart.php?page={{ page }}&minus={{ i.wine_id }}"><span class="fa fa-trash-o"></span></a>
+                        </span>
+                        </td>
+                        <td>GHS {{ i.count * i.cost }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th></th>
+                    <th>Total Qty: {{ cart_items }}</th>
+                    <th>Total Price: GHS {{ total_price }} </th>
+                </tr>
+                </tbody>
+            </table>
+
+        {% endblock %}
+            </div>
+    </div>
+
+
+
+
+
+
+    {#<div>#}
+    {#{% block CHECKOUT %}#}
+        {#<div class="checkout">#}
+            {#<div class="checkout-grid">#}
+                {#<div class="checkout-grid__item"><img src="../images/1.png" alt="Shirt" /><h4>T-Shirt</h4><span class="price">$19.90</span><button class="checkout-grid__item-remove"><i class="icon fa fa-close"></i></button></div>#}
+                {#<div class="checkout-grid__item"><img src="../images/1.png" alt="Shirt" /><h4>T-Shirt</h4><span class="price">$19.90</span><button class="checkout-grid__item-remove"><i class="icon fa fa-close"></i></button></div>#}
+                {#<div class="checkout-grid__item"><img src="../images/1.png" alt="Shirt" /><h4>T-Shirt </h4><span class="price">$29.90</span><button class="checkout-grid__item-remove"><i class="icon fa fa-close"></i></button></div>#}
+
+
+                {#{% for i in cart %}#}
+                {#<div class="checkout-grid__item">#}
+                    {#<img src="../images/1.png" alt="Shirt" />#}
+                    {#<h4>{{ i }}</h4><span class="price">{{ i }}</span>#}
+                    {#<a class="checkout-grid__item-remove" href=href="wine_cart.php?page={{ page }}&minus={{ i }}">#}
+                        {#<i class="icon fa fa-close"></i>#}
+                    {#</a>#}
+                {#</div>#}
+                {#{% endfor %}#}
+            {#</div>#}
+        {#</div><!-- /checkout -->#}
+    {#{% endblock %}#}
+    {#</div>#}
+</div><!-- /view -->
+<!-- product compare wrapper -->
+<section class="compare">
+    <button class="action action--close"><i class="fa fa-remove"></i><span class="action__text action__text--invisible">Close comparison overlay</span></button>
+</section>
+<script src="../js/jquery-2.1.3.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/classie.js"></script>
+<script src="../js/classie1.js"></script>
+<script>
+    (function() {
+        [].slice.call( document.querySelectorAll( '.checkout' ) ).forEach( function( el ) {
+            var openCtrl = el.querySelector( '.checkout__button' ),
+                    closeCtrls = el.querySelectorAll( '.checkout__cancel' );
+
+            openCtrl.addEventListener( 'click', function(ev) {
+                ev.preventDefault();
+                classie.add( el, 'checkout--active' );
+            } );
+
+            [].slice.call( closeCtrls ).forEach( function( ctrl ) {
+                ctrl.addEventListener( 'click', function() {
+                    classie.remove( el, 'checkout--active' );
+                } );
+            } );
+        } );
+    })();
+</script>
+<script src="../js/main.js"></script>
+<script src="../js/uiMorphingButton_fixed.js"></script>
+<script src="../js/checkout_classie.js"></script>
+{#<script>#}
+    {#(function() {#}
+        {#var docElem = window.document.documentElement, didScroll, scrollPosition;#}
+
+        {#// trick to prevent scrolling when opening/closing button#}
+        {#function noScrollFn() {#}
+            {#window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );#}
+        {#}#}
+
+        {#function noScroll() {#}
+            {#window.removeEventListener( 'scroll', scrollHandler );#}
+            {#window.addEventListener( 'scroll', noScrollFn );#}
+        {#}#}
+
+        {#function scrollFn() {#}
+            {#window.addEventListener( 'scroll', scrollHandler );#}
+        {#}#}
+
+        {#function canScroll() {#}
+            {#window.removeEventListener( 'scroll', noScrollFn );#}
+            {#scrollFn();#}
+        {#}#}
+
+        {#function scrollHandler() {#}
+            {#if( !didScroll ) {#}
+                {#didScroll = true;#}
+                {#setTimeout( function() { scrollPage(); }, 60 );#}
+            {#}#}
+        {#};#}
+
+        {#function scrollPage() {#}
+            {#scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };#}
+            {#didScroll = false;#}
+        {#};#}
+
+        {#scrollFn();#}
+
+        {#[].slice.call( document.querySelectorAll( '.morph-button' ) ).forEach( function( bttn ) {#}
+            {#new UIMorphingButton( bttn, {#}
+                {#closeEl : '.icon-close',#}
+                {#onBeforeOpen : function() {#}
+                    {#// don't allow to scroll#}
+                    {#noScroll();#}
+                {#},#}
+                {#onAfterOpen : function() {#}
+                    {#// can scroll again#}
+                    {#canScroll();#}
+                {#},#}
+                {#onBeforeClose : function() {#}
+                    {#// don't allow to scroll#}
+                    {#noScroll();#}
+                {#},#}
+                {#onAfterClose : function() {#}
+                    {#// can scroll again#}
+                    {#canScroll();#}
+                {#}#}
+            {#} );#}
+        {#} );#}
+
+        {#// for demo purposes only#}
+        {#[].slice.call( document.querySelectorAll( 'form button' ) ).forEach( function( bttn ) {#}
+            {#bttn.addEventListener( 'click', function( ev ) { ev.preventDefault(); } );#}
+        {#} );#}
+    {#})();#}
+{#</script>#}
+
+</body>
+</html>
