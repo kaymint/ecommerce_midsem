@@ -76,6 +76,34 @@ class user extends adb_object{
 
         return $stmt->get_result();
     }
+
+    /**
+     * @param $uid
+     * @param $pass
+     * @return bool|mysqli_stmt
+     */
+    function setPassword($uid, $pass){
+
+        $password = encrypt($pass);
+        //sql query
+        $str_query = "UPDATE customer
+                     SET
+                     password = ?
+                     WHERE cust_id = ?";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("si", $password, $uid);
+
+
+        $stmt->execute();
+
+        return $stmt;
+    }
 }
 
 

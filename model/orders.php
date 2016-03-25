@@ -59,6 +59,112 @@ class orders extends adb_object
     }
 
 
+    /**
+     * @return bool|mysqli_result
+     */
+    function getCategories(){
+        //sql query
+        $str_query = "SELECT * FROM categories";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getBrands(){
+
+        //sql query
+        $str_query = "SELECT * FROM brands";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @param $cid
+     * @return bool|mysqli_result
+     */
+    function getCustomerCart($cid){
+        //sql query
+        $str_query = "SELECT * FROM receipts R
+                      INNER JOIN orders O
+                      ON R.receipt_id = O.receipt_id
+                      INNER JOIN furniture F
+                      ON O.furniture_id = F.furniture_id
+                      INNER JOIN brands B
+                      ON B.brand_id = F.brand_id
+                      INNER JOIN categories C
+                      ON C.category_id = F.category
+                      INNER JOIN furniture_type FT
+                      ON FT.furniture_type_id = F.furniture_type
+                      AND R.cust_id = ?
+                      ORDER BY R.date_ordered DESC";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("i", $cid);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @param $rid
+     * @return bool|mysqli_result
+     */
+    function getReceiptDetails($rid){
+
+        //sql query
+        $str_query = "SELECT * FROM receipts R
+                      INNER JOIN orders O
+                      ON R.receipt_id = O.receipt_id
+                      INNER JOIN furniture F
+                      ON O.furniture_id = F.furniture_id
+                      INNER JOIN brands B
+                      ON B.brand_id = F.brand_id
+                      INNER JOIN categories C
+                      ON C.category_id = F.category
+                      INNER JOIN furniture_type FT
+                      ON FT.furniture_type_id = F.furniture_type
+                      AND R.receipt_id = ?
+                      ORDER BY R.date_ordered";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("i", $rid);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
 
     /**
      * @param $recId
@@ -121,6 +227,7 @@ class orders extends adb_object
 
         return $stmt;
     }
+
 
 
 }
