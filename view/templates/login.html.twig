@@ -1,54 +1,85 @@
+{% extends "home.html.twig" %}
 
-{% extends "sample.html.twig" %}
-
-{% block PAGER %}
-
+{% block CAROUSEL %}
 {% endblock %}
 
-{% block PAGINATION %}
 
+{% block CATEGORY %}
 {% endblock %}
 
-{% block CONTENT %}
-<section>
-    <p>Click one of the buttons below to see a <strong>modal dialog</strong>:</p>
-    <div class="mockup-content">
-        <p>Pea horseradish azuki bean lettuce avocado asparagus okra.</p>
-        <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
-            <button type="button">Login</button>
-            <div class="morph-content">
-                <div>
-                    <div class="content-style-form content-style-form-1">
-                        <span class="icon icon-close">Close the dialog</span>
-                        <h2>Login</h2>
-                        <form>
-                            <p><label>Email</label><input type="text" /></p>
-                            <p><label>Password</label><input type="password" /></p>
-                            <p><button>Login</button></p>
+
+{% block BRANDS %}
+{% endblock %}
+
+
+{% block LEFTSIDE %}
+{% endblock %}
+
+{% block WARNING %}
+    <div class="container bg-warning panel-danger text-center">
+        <h2 style="color: red">{{ warning }}</h2>
+    </div>
+{% endblock %}
+
+{% block MAINCONTENT %}
+
+    <section id="form"><!--form-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-1">
+                    <div class="login-form"><!--login form-->
+                        <h2>Login to your account</h2>
+                        <form action="login.php" method="post">
+                            <input type="hidden" name="cmd" value="1">
+                            <input type="text" name="username" placeholder="Email/Username" />
+                            <input type="password" name="password" placeholder="Password"/>
+							<span>
+								<input type="checkbox" class="checkbox">
+								Keep me signed in
+							</span>
+                            <button type="submit" class="btn btn-default">Login</button>
                         </form>
-                    </div>
+                    </div><!--/login form-->
+                </div>
+                <div class="col-sm-1">
+                    <h2 class="or">OR</h2>
+                </div>
+                <div class="col-sm-4">
+                    <div class="signup-form"><!--sign up form-->
+                        <h2>New User Signup!</h2>
+                        <form action="login.php" method="post">
+                            <input type="hidden" name="cmd" value="2">
+                            <input type="text" name="username" placeholder="Username" required/>
+                            <label for="title">Title</label>
+                            <select name="title">
+                                <option value="MR">Mr.</option>
+                                <option value="MRS">Mrs.</option>
+                                <option value="MS">Ms.</option>
+                            </select>
+                            <input type="text" name="fname" placeholder="First Name" required/>
+                            <input type="text" name="lname" placeholder="Last Name" required/>
+                            <input type="email" name="email" placeholder="Email Address"required/>
+                            <input type="date" name="bdate" placeholder="Date of Birth"/>
+                            <input type="tel" name="phone" placeholder="Phone" required/>
+                            <input type="password" name="password" placeholder="Password" required/>
+                            <input type="password" name="password2" placeholder="Confirm Password" required/>
+                            <input type="text" name="address" placeholder="Address" required/>
+                            <label for="city">City: </label>
+                            <select name="city">
+                                <option value="ACCRA">ACCRA</option>
+                                <option value="TAKORADI">TAKORADI</option>
+                                <option value="TEMA">TEMA</option>
+                                <option value="KUMASI">KUMASI</option>
+                                <option value="LONDON">LONDON</option>
+                                <option value="NEW YORK">NEW YORK</option>
+                            </select>
+                            <button type="submit" class="btn btn-default">Signup</button>
+                        </form>
+                    </div><!--/sign up form-->
                 </div>
             </div>
-        </div><!-- morph-button -->
-        <strong class="joiner">or</strong>
-        <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-            <button type="button">Signup</button>
-            <div class="morph-content">
-                <div>
-                    <div class="content-style-form content-style-form-2">
-                        <span class="icon icon-close">Close the dialog</span>
-                        <h2>Sign Up</h2>
-                        <form>
-                            <p><label>Email</label><input type="text" /></p>
-                            <p><label>Password</label><input type="password" /></p>
-                            <p><label>Repeat Password</label><input type="password" /></p>
-                            <p><button>Sign Up</button></p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div><!-- morph-button -->
-        <p>Kohlrabi radish okra azuki bean corn fava bean mustard tigernut juccama green bean celtuce collard greens avocado quandong.</p>
-    </div><!-- /form-mockup -->
-</section>
+        </div>
+    </section><!--/form-->
+
 {% endblock %}
+

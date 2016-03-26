@@ -50,7 +50,7 @@ class user extends adb_object{
 
         $stmt->execute();
 
-        return $stmt;
+        return true;
     }
 
     /**
@@ -62,7 +62,8 @@ class user extends adb_object{
 
         $password = encrypt($password);
 
-        $str_query = "SELECT * FROM ecommerce_furniture.customer WHERE username = ? and password = ?";
+        $str_query = "SELECT DISTINCT * FROM ecommerce_furniture.customer WHERE username = ? and password = ?
+                      OR customer.email = ? and password = ?";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -70,7 +71,7 @@ class user extends adb_object{
             return false;
         }
 
-        $stmt->bind_param("ss", $username, $password);
+        $stmt->bind_param("ssss", $username, $password, $username, $password);
 
         $stmt->execute();
 
@@ -112,9 +113,16 @@ function encrypt($pass){
 }
 
 
-//$testObj = new admin();
-//$result = $testObj->loginUser('N.Amanquah', 'N.Amanquah');
-//$row = $result->fetch_all(MYSQLI_ASSOC);
+//$testObj = new user();
+//$testObj->addUser('S.Mensah','S.Mensah', 'Sally',
+//    'Mensah','gsm@gmail.com','122 New Weija', '1963-05-06', '233200393945', 'MRS', 'Accra');
+
+//addUser($username, $password, $firstname, $lastname,
+//    $email, $address, $birthdate, $phone, $title, $city);
+
+
+//$result = $testObj->loginUser('gsm@gmail.com', 'S.Mensah');
+//$row = $result->fetch_assoc();
 //var_dump($row);
 //
 //if(count($row[0]) == 0){

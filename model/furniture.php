@@ -160,6 +160,32 @@ class furniture extends adb_object{
      */
 
     /**
+     * @param $fid
+     * @param $image
+     * @return bool|mysqli_stmt
+     */
+    function updateImage($fid, $image){
+        //sql query
+        $str_query = "UPDATE furniture
+                      SET
+                      image = ?
+                      WHERE furniture_id = ?";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("si", $image, $fid);
+
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    /**
      * @param $cost
      * @return bool|mysqli_stmt
      */
@@ -309,6 +335,33 @@ class furniture extends adb_object{
         return $stmt->get_result();
     }
 
+    /**
+     * @return bool|mysqli_result
+     */
+    function getStockCount(){
+        //sql query
+        $str_query = "SELECT COUNT(*) AS totalCount FROM furniture F
+                      INNER JOIN inventory I
+                      ON F.furniture_id = I.furniture_id
+                      INNER JOIN furniture_type FT
+                      ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN categories C
+                      ON C.category_id = F.category
+                      INNER JOIN brands B
+                      ON B.brand_id = F.brand_id
+                      ORDER BY F.brand_id";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
 
     /**
      * @param $brand
@@ -326,7 +379,7 @@ class furniture extends adb_object{
                       ON C.category_id = F.category
                       INNER JOIN brands B
                       ON B.brand_id = F.brand_id
-                      AND B.brand_name = ?
+                      AND B.brand_id = ?
                       ORDER BY F.brand_id
                       ";
 
@@ -338,7 +391,35 @@ class furniture extends adb_object{
             return false;
         }
 
-        $stmt->bind_param("s", $brand);
+        $stmt->bind_param("i", $brand);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    function getByBrandCount($brand){
+        //sql query
+        $str_query = "SELECT COUNT(*) AS totalCount FROM furniture F
+                      INNER JOIN inventory I
+                      ON F.furniture_id = I.furniture_id
+                      INNER JOIN furniture_type FT
+                      ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN categories C
+                      ON C.category_id = F.category
+                      INNER JOIN brands B
+                      ON B.brand_id = F.brand_id
+                      AND B.brand_id = ?
+                      ORDER BY F.brand_id
+                      ";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("i", $brand);
 
         $stmt->execute();
 
@@ -357,7 +438,7 @@ class furniture extends adb_object{
                       ON C.category_id = F.category
                       INNER JOIN brands B
                       ON B.brand_id = F.brand_id
-                      AND C.category = ?
+                      AND C.category_id = ?
                       ORDER BY F.brand_id";
 
         $str_query .= " ". $limit;
@@ -368,7 +449,38 @@ class furniture extends adb_object{
             return false;
         }
 
-        $stmt->bind_param("s", $cat);
+        $stmt->bind_param("i", $cat);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @param $cat
+     * @return bool|mysqli_result
+     */
+    function getByCatCount($cat){
+        //sql query
+        $str_query = "SELECT COUNT(*) AS totalCount FROM furniture F
+                      INNER JOIN inventory I
+                      ON F.furniture_id = I.furniture_id
+                      INNER JOIN furniture_type FT
+                      ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN categories C
+                      ON C.category_id = F.category
+                      INNER JOIN brands B
+                      ON B.brand_id = F.brand_id
+                      AND C.category_id = ?
+                      ORDER BY F.brand_id";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("i", $cat);
 
         $stmt->execute();
 
@@ -387,7 +499,7 @@ class furniture extends adb_object{
                       ON C.category_id = F.category
                       INNER JOIN brands B
                       ON B.brand_id = F.brand_id
-                      AND FT.furniture_type = ?
+                      AND FT.furniture_type_id = ?
                       ORDER BY F.brand_id";
 
         $str_query .= " ". $limit;
@@ -398,7 +510,46 @@ class furniture extends adb_object{
             return false;
         }
 
-        $stmt->bind_param("s", $type);
+        $stmt->bind_param("i", $type);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getCategories(){
+        //sql query
+        $str_query = "SELECT * FROM categories";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getBrands(){
+
+        //sql query
+        $str_query = "SELECT * FROM brands";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
 
         $stmt->execute();
 
@@ -560,12 +711,12 @@ class furniture extends adb_object{
 }
 
 
-$testObj = new furniture();
-
-
-
-$row = $result->fetch_all(MYSQLI_ASSOC);
-
-var_dump($row);
+//$testObj = new furniture();
+//
+//$result = $testObj->viewByCategory('Kitchen', 'LIMIT 8');
+//
+//$row = $result->fetch_assoc();
+//
+//var_dump($row);
 
 

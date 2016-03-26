@@ -31,9 +31,16 @@ class orders extends adb_object
      * @param $total
      * @param $address
      * @param $phone
+     * @param $address2
+     * @param $rec_fname
+     * @param $rec_lname
+     * @param $rec_email
+     * @param $rec_country
+     * @param $rec_compname
      * @return bool|mysqli_stmt
      */
-    function addReceipt($cid, $total, $address, $phone)
+    function addReceipt($cid, $total, $address, $phone, $address2, $rec_fname, $rec_lname,
+                        $rec_email, $rec_country, $rec_compname)
     {
 
         $paid = 'UNPAID';
@@ -41,8 +48,10 @@ class orders extends adb_object
 
 
         //sql query
-        $str_query = "INSERT INTO receipts(cust_id, date_ordered, total_cost, paid, shipping_address, phone)
-                      VALUES (?, ?, ?, ?,?, ?)";
+        $str_query = "INSERT INTO receipts(cust_id, date_ordered, total_cost, paid, shipping_address, phone,
+                              shipping_address2, receiver_firstname, receiver_lastname, receiver_email, country,
+                              company_name)
+                      VALUES (?, ?, ?, ?,?, ?,?, ?, ?, ?,?, ? )";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -50,7 +59,8 @@ class orders extends adb_object
             return false;
         }
 
-        $stmt->bind_param("isdsss", $cid, $date, $total, $paid, $address, $phone);
+        $stmt->bind_param("isdsssssssss", $cid, $date, $total, $paid, $address, $phone,$address2, $rec_fname,
+            $rec_lname, $rec_email, $rec_country, $rec_compname );
 
 
         $stmt->execute();
@@ -59,43 +69,7 @@ class orders extends adb_object
     }
 
 
-    /**
-     * @return bool|mysqli_result
-     */
-    function getCategories(){
-        //sql query
-        $str_query = "SELECT * FROM categories";
 
-        $stmt = $this->prepareQuery($str_query);
-
-        if($stmt === false){
-            return false;
-        }
-
-        $stmt->execute();
-
-        return $stmt->get_result();
-    }
-
-
-    /**
-     * @return bool|mysqli_result
-     */
-    function getBrands(){
-
-        //sql query
-        $str_query = "SELECT * FROM brands";
-
-        $stmt = $this->prepareQuery($str_query);
-
-        if($stmt === false){
-            return false;
-        }
-
-        $stmt->execute();
-
-        return $stmt->get_result();
-    }
 
     /**
      * @param $cid
@@ -173,11 +147,11 @@ class orders extends adb_object
      * @param $cost
      * @return bool|mysqli_stmt
      */
-    function addOrder($recId, $fId, $cid, $cost){
+    function addOrder($recId, $fId, $cid, $cost , $qty){
 
         //sql query
-        $str_query = "INSERT INTO orders(receipt_id, furniture_id, cust_id, cost)
-                      VALUES (?, ?, ?, ?)";
+        $str_query = "INSERT INTO orders(receipt_id, furniture_id, cust_id, cost, qty)
+                      VALUES (?, ?, ?, ?, ?)";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -185,7 +159,7 @@ class orders extends adb_object
             return false;
         }
 
-        $stmt->bind_param("iiid", $recId, $fId, $cid, $cost);
+        $stmt->bind_param("iiidi", $recId, $fId, $cid, $cost, $qty);
 
 
         $stmt->execute();
