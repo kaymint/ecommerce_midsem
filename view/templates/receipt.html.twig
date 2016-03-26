@@ -1,0 +1,46 @@
+{% extends "home.html.twig" %}
+
+{% block CAROUSEL %}
+{% endblock %}
+
+{% block CATEGORY %}
+{% endblock %}
+
+{% block BRANDS %}
+{% endblock %}
+
+{% block LEFTSIDE %}
+{% endblock %}
+
+{% block WARNING %}
+    <div class="container bg-warning panel-danger text-center">
+        <h2 style="color: red">{{ warning }}</h2>
+    </div>
+{% endblock %}
+
+{% block MAINCONTENT %}
+    <section id="form"><!--form-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="signup-form"><!--sign up form-->
+                        <h1>My Profile</h1>
+                        <form action="" method="">
+                            <h2>Username: </h2>
+                            <h2>Title: </h2>
+                            <h2>First Name: </h2>
+                            <h2>Last Name: </h2>
+                            <h2>Email: </h2>
+                            <h2>Address: </h2>
+                            <h2>Date of Birth: </h2>
+                            <h2>City: </h2>
+                            <h2>Phone: </h2>
+                        </form>
+                    </div><!--/sign up form-->
+                </div>
+            </div>
+        </div>
+    </section><!--/form-->
+
+{% endblock %}
+

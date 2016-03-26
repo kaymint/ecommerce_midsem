@@ -100,10 +100,4 @@ if(isset($_REQUEST['cmd'])){
     }
 }
 
-
-
-
-
-
-
 $template->display($params);

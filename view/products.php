@@ -66,7 +66,35 @@ function getResult($furniture){
                 $value['result'] = $result;
                 return $value;
                 break;
+            case 4:
+                //simple search
+                if(isset($_REQUEST['st'])){
+                    $st = $_REQUEST['st'];
+                    $result = $furniture->getSearchCount($st);
+                    $value['pType'] = 'st';
+                    $value['pageIndex'] = $st;
+                    $value['result'] = $result;
+                    return $value;
+                }
+                break;
+            case 5:
+                //advanced search
+                if(isset($_REQUEST['stband']) || isset($_REQUEST['stname']) || isset($_REQUEST['stcat'])){
+                    $stbrand = $_REQUEST['stband'];
+                    $stname = $_REQUEST['stname'];
+                    $stcat = $_REQUEST['stcat'];
+                    $result = $furniture->getAdvancedSearchCount($stbrand, $stname, $stcat);
+                    $value['pType'] = 'stband';
+                    $value['pageIndex'] = $stbrand;
+                    $value['stname'] = 'stname';
+                    $value['stNameIndex'] = $stname;
+                    $value['stcat'] = 'stcat';
+                    $value['stCatIndex'] = $stcat;
+                    $value['result'] = $result;
+                    return $value;
+                }
 
+                break;
         }
     }else{
         $result = $furniture->getStockCount();
@@ -84,6 +112,13 @@ if(isset($value['pageIndex']) && isset($value['pType']) && isset($value['vt'])){
     $params['pageIndex'] = $value['pageIndex'];
     $params['pType'] = $value['pType'];
     $params['vt'] = $value['vt'];
+}
+
+if(isset($value['stname']) && isset($value['stcat'])){
+    $params['stname']= $value['stname'];
+    $params['stNameIndex']= $value['stNameIndex'];
+    $params['stcat']= $value['stcat'];
+    $params['stCatIndex']= $value['stCatIndex'];
 }
 
 $count = $result->fetch_assoc();
@@ -130,6 +165,21 @@ if(isset($_REQUEST['cmd'])){
         case 3:
             break;
         case 4:
+            //view by brandname
+            if(isset($_REQUEST['st'])){
+                $name = $_REQUEST['st'];
+                $result = $furniture->searchByName($name ,$limit);
+                $params['pageType'] = 'st';
+            }
+            break;
+        case 5:
+            if(isset($_REQUEST['stband']) || isset($_REQUEST['stname']) || isset($_REQUEST['stcat'])) {
+                $stbrand = $_REQUEST['stband'];
+                $stname = $_REQUEST['stname'];
+                $stcat = $_REQUEST['stcat'];
+                $result = $furniture->advancedSearch($stbrand, $stname, $stcat);
+            }
+
             break;
         default:
             $result = $furniture->viewStock($limit);

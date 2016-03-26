@@ -10,6 +10,10 @@ require_once 'fpdf.php';
 
 session_start();
 
+if(!isset($_SESSION['username'])){
+    header("Location: login.php");
+}
+
 $pdf = new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Arial', 'i', 14);
@@ -39,13 +43,26 @@ $pdf->PageNo();
 
 
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'i', 14);
+$pdf->SetFont('Arial', 'i', 12);
 $pdf->Ln();
 
+$company = "Company Name: ".$_SESSION['com_name'];
+$email = "Email: ".$_SESSION['rec_email'];
+$firstname = "First Name: ".$_SESSION['rec_firstname'];
+$lastname = "Last Name: ".$_SESSION['rec_lastname'];
+$phone = "Phone: ".$_SESSION['rec_phone'];
+$address1 = "Address 1: ".$_SESSION['rec_address1'];
+$address2 = "Address 2: ".$_SESSION['rec_address2'];
+$country = "Country: ".$_SESSION['rec_country'];
+$receipt_id = "Receipt No: ".$_SESSION['receipt_id'];
+$overallTotal = "Overall: ".$_SESSION['overallTotal'];
+$sub_total = "Subtotal: ".$_SESSION['sub_total'];
+$discount = "Discount: ".$_SESSION['discount'];
+
 $pdf->Ln();
-$pdf->Cell(80, 20, 'Hello World!', 1);
+$pdf->Cell(80, 5, 'Billing To:');
 $pdf->Ln();
-$pdf->Cell(80, 20, 'Hello World 2!', 1);
+$pdf->Cell(80, 5, $company);
 
 
 $pdf->Ln();

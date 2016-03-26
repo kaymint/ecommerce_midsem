@@ -708,6 +708,123 @@ class furniture extends adb_object{
         return $stmt->get_result();
     }
 
+
+    /**
+     * @param $name
+     * @return bool|mysqli_result
+     */
+    function getSearchCount($name){
+        //sql query
+        $str_query = "SELECT COUNT(*) AS totalCount FROM furniture F
+                      INNER JOIN inventory I
+                      ON F.furniture_id = I.furniture_id
+                      INNER JOIN furniture_type FT
+                      ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN categories C
+                      ON C.category_id = F.category
+                      INNER JOIN brands B
+                      ON B.brand_id = F.brand_id
+                      AND F.name LIKE ?
+                      ORDER BY F.brand_id";
+
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $name = "%{$name}%";
+
+        $stmt->bind_param("s", $name);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @param $stbrand
+     * @param $stname
+     * @param $stcat
+     * @return bool|mysqli_result
+     */
+    function getAdvancedSearchCount($stbrand, $stname, $stcat){
+
+        //sql query
+        $str_query = "SELECT COUNT(*) AS totalCount FROM furniture F
+                      INNER JOIN inventory I
+                      ON F.furniture_id = I.furniture_id
+                      INNER JOIN furniture_type FT
+                      ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN categories C
+                      ON C.category_id = F.category
+                      INNER JOIN brands B
+                      ON B.brand_id = F.brand_id
+                      AND F.name LIKE ?
+                      AND B.brand_name LIKE ?
+                      AND C.category LIKE ?
+                      ORDER BY F.brand_id";
+
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stname = "%{$stname}%";
+        $stbrand = "%{$stbrand}%";
+        $stcat = "%{$stcat}%";
+
+        $stmt->bind_param("sss", $stname, $stbrand, $stcat);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @param $stbrand
+     * @param $stname
+     * @param $stcat
+     * @return bool|mysqli_result
+     */
+    function advancedSearch($stbrand, $stname, $stcat){
+
+        //sql query
+        $str_query = "SELECT * FROM furniture F
+                      INNER JOIN inventory I
+                      ON F.furniture_id = I.furniture_id
+                      INNER JOIN furniture_type FT
+                      ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN categories C
+                      ON C.category_id = F.category
+                      INNER JOIN brands B
+                      ON B.brand_id = F.brand_id
+                      AND F.name LIKE ?
+                      AND B.brand_name LIKE ?
+                      AND C.category LIKE ?
+                      ORDER BY F.brand_id";
+
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stname = "%{$stname}%";
+        $stbrand = "%{$stbrand}%";
+        $stcat = "%{$stcat}%";
+
+        $stmt->bind_param("sss", $stname, $stbrand, $stcat);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
 }
 
 

@@ -20,6 +20,7 @@ if(isset($_REQUEST['scmd'])){
             //simple search
             if(isset($_REQUEST['st'])){
 
+
             }
             break;
         case 2:

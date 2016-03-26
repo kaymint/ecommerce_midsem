@@ -1,0 +1,51 @@
+{% extends "home.html.twig" %}
+
+{% block CAROUSEL %}
+{% endblock %}
+
+
+{% block CATEGORY %}
+{% endblock %}
+
+
+{% block BRANDS %}
+{% endblock %}
+
+
+{% block LEFTSIDE %}
+{% endblock %}
+
+{% block MAINCONTENT %}
+
+    <section id="cart_items">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="home.php">Home</a></li>
+                    <li class="active">Receipt</li>
+                </ol>
+            </div><!--/breadcrums-->
+
+            <div class="step-one">
+                <h2 class="heading">Thank You</h2>
+            </div>
+            <div class="checkout-options">
+                <h3>Transaction No. : {{ receipt_id }}</h3>
+                <ul class="nav">
+                    <li>
+                        <a href="home.php"><i class="fa fa-angle-double-left"></i>Continue Shopping</a>
+                    </li>
+                    <li>
+                        <a href="receipt_info.php"><i class="fa fa-times"></i>Print Receipt</a>
+                    </li>
+                </ul>
+            </div><!--/checkout-options-->
+
+            <div class="register-req">
+                <p>{{ date }}</p>
+            </div><!--/register-req-->
+
+        </div>
+    </section> <!--/#cart_items-->
+{% endblock %}
+

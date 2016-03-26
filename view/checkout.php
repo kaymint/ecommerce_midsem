@@ -35,10 +35,12 @@ if($_SESSION['sub_total'] > 1000){
     $params['overallTotal'] = ($_SESSION['sub_total'] * .95);
     $_SESSION['overallTotal'] = $params['overallTotal'];
     $params['discount'] = 5;
+    $_SESSION['discount'] = 5;
 }else{
     $params['overallTotal'] = ($_SESSION['sub_total']);
     $_SESSION['overallTotal'] = $params['overallTotal'];
     $params['discount'] = 0;
+    $_SESSION['discount'] = 0;
 }
 
 $params['currentPage'] = $_SERVER['PHP_SELF'];
@@ -77,7 +79,20 @@ isset($_POST['rec_lastname']) && isset($_POST['rec_phone'])
         $rec_email, $rec_country, $com_name);
     $rec_id = $order->get_insert_id();
 
+    $params['receipt_id'] = $rec_id;
+
     $ind_item = $_SESSION['cart_details'];
+
+    $_SESSION['com_name'] = $com_name;
+    $_SESSION['rec_email'] = $rec_email;
+    $_SESSION['rec_firstname'] = $rec_firstname;
+    $_SESSION['rec_lastname'] = $rec_lastname;
+    $_SESSION['rec_phone'] = $rec_phone;
+    $_SESSION['rec_address1'] = $rec_address1;
+    $_SESSION['rec_address2'] = $rec_address2;
+    $_SESSION['rec_country'] = $rec_country;
+    $_SESSION['receipt_id'] = $rec_id;
+
 
     foreach($ind_item as $value){
         $fid = $value['furniture_id'];

@@ -41,7 +41,7 @@
                     {% for prod in cartDetails %}
                     <tr>
                         <td class="cart_product">
-                            <a href=""><img src="images/cart/one.png" alt=""></a>
+                            <a href=""><img style="width: 60px; height: auto" src="{{ prod.image }}" alt=""></a>
                         </td>
                         <td class="cart_description">
                             <h4><a href="">{{ prod.brand_name }} {{ prod.name }} {{ prod.furniture_type }}</a></h4>
