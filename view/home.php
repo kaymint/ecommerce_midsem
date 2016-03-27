@@ -85,6 +85,10 @@ if(isset($_SESSION['nItems'])){
     $params['nItems'] = $_SESSION['nItems'];
 }
 
+if(isset($_SESSION['theme'])){
+    $params['theme'] = $_SESSION['theme'];
+}
+
 
 
 $template->display($params);

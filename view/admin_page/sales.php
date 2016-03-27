@@ -75,4 +75,9 @@ $params['currentPage'] = $_SERVER['PHP_SELF'];
 $params['page'] = $pageno;
 $params['totalPages'] = $lastpage;
 
+$params['admin_username'] = $_SESSION['admin_username'];
+$params['admin_id'] = $_SESSION['admin_id'];
+$params['admin_firstname'] = $_SESSION['admin_firstname'];
+$params['admin_lastname'] = $_SESSION['admin_lastname'];
+
 $template->display($params);

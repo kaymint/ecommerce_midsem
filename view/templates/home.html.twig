@@ -11,7 +11,26 @@
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/price-range.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+
+    {% if theme is defined %}
+
+        {% if theme == 1 %}
+        <link href="css/theme1.css" rel="stylesheet">
+        {% elseif theme == 2 %}
+            <link href="css/theme2.css" rel="stylesheet">
+        {% elseif theme == 3 %}
+            <link href="css/main.css" rel="stylesheet">
+        {% elseif theme == 4 %}
+            <link href="css/theme3.css" rel="stylesheet">
+        {% elseif theme == 5 %}
+            <link href="css/theme4.css" rel="stylesheet">
+        {% else %}
+            <link href="css/main.css" rel="stylesheet">
+        {% endif %}
+    {% else %}
+        <link href="css/main.css" rel="stylesheet">
+    {% endif %}
+
     <link href="css/responsive.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
