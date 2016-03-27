@@ -1,0 +1,88 @@
+{% extends 'home.html.twig' %}
+
+{% block MESSAGE %}
+    {{ message }}
+{% endblock %}
+
+{% block MAINROW %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Quick Example</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form role="form">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                </div>
+
+                <!-- select -->
+                <div class="form-group">
+                    <label>Brand</label>
+                    <select class="form-control" name="brand">
+                        {% for x in brands %}
+                            <option value="x.brand_id">{{ x.brand_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- select -->
+                <div class="form-group">
+                    <label>Category</label>
+                    <select class="form-control" name="cat">
+                        {% for x in categories %}
+                        <option value="x.category_id">{{ x.category }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+
+                <!-- select -->
+                <div class="form-group">
+                    <label>Furniture Type</label>
+                    <select class="form-control" name="type">
+                        {% for x in types %}
+                        <option value="{{ x.furniture_type_id }}">{{ x.furniture_type }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Price</label>
+                    <input type="number" class="form-control" id="exampleInputPassword1" name="cost" placeholder="Price">
+                </div>
+                <!-- textarea -->
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="3" name="desc" placeholder="Enter Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Quantity</label>
+                    <input type="number" class="form-control" id="exampleInputPassword1" name="onhand" placeholder="Quantity">
+                </div>
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="reset" class="btn btn-primary">Cancel</button>
+                <button type="submit" class="btn btn-primary">Add Inventory</button>
+            </div>
+        </form>
+
+        <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+            <div id="image_preview"><img style="width: 300px; height: auto" class="col-sm-12" id="previewing" src="noimage.jpg" /></div>
+            <hr id="line">
+            <div class="form-group" id="selectImage">
+                <label>Select Your Image</label><br/>
+                <input type="file" name="file" id="file" required />
+                <div id="message"></div>
+                <!--                                            <input type="submit" value="Upload" class="submit" />-->
+                <button type="submit" class="btn btn-app submit primary">
+                    <i class="fa fa-upload"></i> Upload
+                </button>
+            </div>
+        </form>
+
+    </div><!-- /.box -->
+
+{% endblock %}

@@ -20,6 +20,6 @@ $twig = new Twig_Environment($loader);
 $template =$twig->loadTemplate('receipt_info.html.twig');
 $params = array();
 
-
+$params['receipt_id'] = $_SESSION['receipt_id'];
 
 $template->display($params);

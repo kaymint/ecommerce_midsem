@@ -202,6 +202,42 @@ class orders extends adb_object
         return $stmt;
     }
 
+    /**
+     * @return bool|mysqli_result
+     */
+    function getNumOrders(){
+        //sql query
+        $str_query = "SELECT COUNT(*) AS numOrders FROM orders";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getNumSales(){
+        //sql query
+        $str_query = "SELECT COUNT(*) AS numSales FROM receipts WHERE paid=PAID";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
 
 
 }

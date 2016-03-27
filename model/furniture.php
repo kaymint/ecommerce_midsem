@@ -558,6 +558,26 @@ class furniture extends adb_object{
 
 
     /**
+     * @return bool|mysqli_result
+     */
+    function getTypes(){
+
+        //sql query
+        $str_query = "SELECT * FROM furniture_type";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+    /**
      * ***************************************************
      * SEARCH QUERIES
      * ***************************************************

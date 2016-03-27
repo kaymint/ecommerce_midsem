@@ -62,6 +62,7 @@ isset($_POST['rec_lastname']) && isset($_POST['rec_phone'])
     && isset($_POST['rec_address1'])){
 
     $order = new orders();
+    $f = new furniture();
 
     $cid = $_SESSION['cust_id'];
     $total = $_SESSION['overallTotal'];
@@ -98,8 +99,15 @@ isset($_POST['rec_lastname']) && isset($_POST['rec_phone'])
         $fid = $value['furniture_id'];
         $cost = $value['itemTotal'];
         $qty = $value['count'];
+        $onhand = $value['onhand'] - $qty;
+        if($onhand < 0){
+            $onhand = 0;
+        }
         $res = $order->addOrder($rec_id, $fid, $cid, $cost, $qty);
+        $f->updateQuantity($fid, $onhand);
     }
+
+    header("Location: receipt_info.php");
 }
 
 
