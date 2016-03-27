@@ -18,7 +18,7 @@ Twig_Autoloader::register();
 
 $loader = new Twig_Loader_Filesystem('templates');
 $twig = new Twig_Environment($loader);
-$template =$twig->loadTemplate('home.html.twig');
+$template =$twig->loadTemplate('sales.html.twig');
 $params = array();
 
 if (isset($_GET['page'])) {
@@ -30,7 +30,7 @@ if (isset($_GET['page'])) {
 $furniture = new furniture();
 $orders = new orders();
 
-$result = $furniture->getStockCount();
+$result = $orders->getSalesCount();
 
 $count = $result->fetch_assoc();
 $numrows = $count['totalCount'];
@@ -53,11 +53,12 @@ $params['inventory_count'] = $numrows;
 //5
 $limit = 'LIMIT ' .($pageno - 1) * $rows_per_page .',' .$rows_per_page;
 
-$result = $furniture->viewStock($limit);
+$result = $orders->getSales();
 
 //stock party
 $stock = $result->fetch_all(MYSQLI_ASSOC);
-$params['furniture'] = $stock;
+$params['sales'] = $stock;
+
 
 //get orders
 $result = $orders->getNumOrders();
@@ -66,20 +67,12 @@ $params['order_count'] = $nOrders['numOrders'];
 
 
 //get sales
-$result = $orders->getNumOrders();
+$result = $orders->getNumSales();
 $nSales = $result->fetch_assoc();
 $params['sales_count'] = $nOrders['numSales'];
 
 $params['currentPage'] = $_SERVER['PHP_SELF'];
 $params['page'] = $pageno;
 $params['totalPages'] = $lastpage;
-
-
-$params['admin_username'] = $_SESSION['admin_username'];
-$params['admin_id'] = $_SESSION['admin_id'];
-$params['admin_firstname'] = $_SESSION['admin_firstname'];
-$params['admin_lastname'] = $_SESSION['admin_lastname'];
-
-
 
 $template->display($params);

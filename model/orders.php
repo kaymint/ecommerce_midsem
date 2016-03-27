@@ -111,19 +111,50 @@ class orders extends adb_object
     function getReceiptDetails($rid){
 
         //sql query
-        $str_query = "SELECT * FROM receipts R
-                      INNER JOIN orders O
-                      ON R.receipt_id = O.receipt_id
-                      INNER JOIN furniture F
-                      ON O.furniture_id = F.furniture_id
-                      INNER JOIN brands B
-                      ON B.brand_id = F.brand_id
-                      INNER JOIN categories C
-                      ON C.category_id = F.category
-                      INNER JOIN furniture_type FT
-                      ON FT.furniture_type_id = F.furniture_type
-                      AND R.receipt_id = ?
-                      ORDER BY R.date_ordered";
+        $str_query = "SELECT
+                        R.receipt_id,
+                          O.cost As ordertotal,
+                          O.qty AS qty,
+                          CONCAT(B.brand_name, \" \", F.name, \" \", FT.furniture_type) AS product,
+                          CONCAT('#',R.receipt_id,R.cust_id, F.furniture_id) As order_id,
+                          R.total_cost,
+                          CASE
+                            WHEN total_cost > 1000 THEN total_cost / 0.95
+                            ELSE total_cost
+                            END AS 'subtotal',
+                          CASE
+                          WHEN total_cost > 1000 THEN '5%'
+                          ELSE '0'
+                          END AS 'discount',
+                          CASE
+                          WHEN R.country = 'Ghana' THEN 'Free'
+                          ELSE total_cost * .03
+                          END AS 'shipping',
+
+                          CASE
+                          WHEN R.country = 'Ghana' AND total_cost > 1000 THEN total_cost
+                          WHEN R.country <> 'Ghana' AND total_cost > 1000 THEN total_cost + (total_cost * .03)
+                          END AS 'overAllTotal',
+
+                          CONCAT(R.receiver_firstname,\" \" ,R.receiver_lastname) AS rec_name,
+                          R.receiver_email,
+                          R.shipping_address,
+                          R.phone,
+                          R.country,
+                          F.description
+                        FROM orders O
+                          INNER JOIN receipts R
+                            ON R.receipt_id = O.receipt_id
+                          INNER JOIN furniture F
+                            ON O.furniture_id = F.furniture_id
+                          INNER JOIN brands B
+                            ON B.brand_id = F.brand_id
+                          INNER JOIN categories C
+                            ON C.category_id = F.category
+                          INNER JOIN furniture_type FT
+                            ON FT.furniture_type_id = F.furniture_type
+                               AND R.receipt_id = ?
+                        ORDER BY R.date_ordered ";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -232,6 +263,152 @@ class orders extends adb_object
         if($stmt === false){
             return false;
         }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    function getOrders(){
+        //sql query
+        $str_query = "SELECT
+                      CONCAT('#',R.receipt_id,R.cust_id, F.furniture_id) As order_id,
+                      R.receipt_id,
+                      R.shipping_address,
+                      CONCAT(R.receiver_firstname, \" \",  R.receiver_lastname) AS recepient,
+                      CONCAT(B.brand_name,\" \", F.name, \" \",FT.furniture_type) AS product,
+                      R.date_ordered,
+                      CASE
+                      WHEN R.date_paid IS NULL THEN 'processing'
+                      ELSE 'delivered'
+                      END as 'status',
+                      O.qty,
+                      O.cost
+                    FROM receipts R
+                      INNER JOIN orders O
+                        ON R.receipt_id = O.receipt_id
+                      INNER JOIN furniture F
+                        ON O.furniture_id = F.furniture_id
+                      INNER JOIN brands B
+                        ON B.brand_id = F.brand_id
+                      INNER JOIN categories C
+                        ON C.category_id = F.category
+                      INNER JOIN furniture_type FT
+                        ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN customer CT
+                        ON CT.cust_id = R.cust_id
+                    ORDER BY R.date_ordered ASC";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+    function getOrderCount(){
+        //sql query
+        $str_query = "SELECT COUNT(*) AS totalCount
+                    FROM receipts R
+                      INNER JOIN orders O
+                        ON R.receipt_id = O.receipt_id
+                      INNER JOIN furniture F
+                        ON O.furniture_id = F.furniture_id
+                      INNER JOIN brands B
+                        ON B.brand_id = F.brand_id
+                      INNER JOIN categories C
+                        ON C.category_id = F.category
+                      INNER JOIN furniture_type FT
+                        ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN customer CT
+                        ON CT.cust_id = R.cust_id
+                    ORDER BY R.date_ordered ASC";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+    function getSales(){
+        //sql query
+        $str_query = "SELECT
+                      R.receipt_id,
+                      R.shipping_address,
+                      CONCAT(R.receiver_firstname, \" \",  R.receiver_lastname) AS recepient,
+                      CONCAT(B.brand_name,\" \", F.name, \" \",FT.furniture_type) AS product,
+                      R.date_ordered,
+                      R.date_paid,
+                      O.qty,
+                      O.cost
+                    FROM receipts R
+                      INNER JOIN orders O
+                        ON R.receipt_id = O.receipt_id
+                      INNER JOIN furniture F
+                        ON O.furniture_id = F.furniture_id
+                      INNER JOIN brands B
+                        ON B.brand_id = F.brand_id
+                      INNER JOIN categories C
+                        ON C.category_id = F.category
+                      INNER JOIN furniture_type FT
+                        ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN customer CT
+                        ON CT.cust_id = R.cust_id
+                      AND R.paid = 'PAID'
+                      ORDER BY R.date_ordered DESC";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+    function getSalesCount(){
+        //sql query
+        $str_query = "SELECT
+                      COUNT(*) AS totalCount
+                    FROM receipts R
+                      INNER JOIN orders O
+                        ON R.receipt_id = O.receipt_id
+                      INNER JOIN furniture F
+                        ON O.furniture_id = F.furniture_id
+                      INNER JOIN brands B
+                        ON B.brand_id = F.brand_id
+                      INNER JOIN categories C
+                        ON C.category_id = F.category
+                      INNER JOIN furniture_type FT
+                        ON FT.furniture_type_id = F.furniture_type
+                      INNER JOIN customer CT
+                        ON CT.cust_id = R.cust_id
+                      AND R.paid = 'PAID'
+                      ORDER BY R.date_ordered DESC";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
 
         $stmt->execute();
 
