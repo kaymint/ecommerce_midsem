@@ -83,6 +83,58 @@ class furniture extends adb_object{
     }
 
 
+    function updateFurniture($type, $name, $description, $category, $brand,$image, $fid){
+        //sql query
+        $str_query = "UPDATE furniture
+                        SET furniture_type ?,
+                        name = ? ,
+                        description = ?,
+                        brand_id = ?,
+                        category = ?,
+                        image = ?
+                      WHERE furniture_id = ?";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("issiisi", $type, $name, $description, $brand,$category, $image, $fid);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+
+    function updateInventory($fid, $onhand, $cost){
+        //sql query
+        $str_query = "UPDATE
+                      inventory
+                      SET
+                      onhand = ?,
+                      cost = ? ,
+                      date_added = ?
+                      WHERE furniture_id = ?";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $date = date("Y-m-d h:i:s");
+
+        $stmt->bind_param("iids", $fid, $onhand, $cost, $date);
+
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+
     /**
      * @param $type
      * @return bool|mysqli_stmt
