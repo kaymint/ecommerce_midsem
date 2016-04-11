@@ -112,7 +112,7 @@ class PHPMailer
      * The plain-text message body.
      * This body can be read by mail clients that do not have HTML email
      * capability such as mutt & Eudora.
-     * Clients that can read HTML will view the normal Body.
+     * Clients that can read HTML will customer_view the normal Body.
      * @var string
      */
     public $AltBody = '';
@@ -3333,7 +3333,7 @@ class PHPMailer
         $this->Body = $this->normalizeBreaks($message);
         $this->AltBody = $this->normalizeBreaks($this->html2text($message, $advanced));
         if (empty($this->AltBody)) {
-            $this->AltBody = 'To view this email message, open it in a program that understands HTML!' .
+            $this->AltBody = 'To customer_view this email message, open it in a program that understands HTML!' .
                 self::CRLF . self::CRLF;
         }
         return $this->Body;

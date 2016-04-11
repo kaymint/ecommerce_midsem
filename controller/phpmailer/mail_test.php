@@ -10,7 +10,7 @@ $mail->addAddress("kenneth.mensah62@gmail.com", "Kenneth Mintah Mensah");
 
 //Provide file path and name of the attachments
 //$mail->addAttachment("file.txt", "File.txt");
-//$mail->addAttachment("../../view/images/banner.png"); //Filename is optional
+//$mail->addAttachment("../../customer_view/images/banner.png"); //Filename is optional
 
 $mail->isHTML(true);
 

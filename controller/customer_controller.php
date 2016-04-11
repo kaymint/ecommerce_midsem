@@ -32,7 +32,7 @@ function logout(){
 
     session_destroy();
 
-    header('Location: ../view/home.php');
+    header('Location: ../customer_view/home.php');
 }
 
 

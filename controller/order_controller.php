@@ -35,9 +35,9 @@ function pay(){
         $orders = new orders();
         $res = $orders->updateReceipt($rid, $pay, $card);
         if($res != false){
-            header("Location: ../view/admin_page/sales.php");
+            header("Location: ../customer_view/admin_page/sales.php");
         }else{
-            header("Location: ../view/admin_page/order_details.php?rid={$rid}");
+            header("Location: ../customer_view/admin_page/order_details.php?rid={$rid}");
         }
     }
 }
@@ -53,9 +53,9 @@ function orderConfirmation(){
         $recipt_id = $_SESSION['receipt_id'];
         $overall = $_SESSION['overallTotal'];
 
-        $logo = '../view/logo.png';
+        $logo = '../customer_view/logo.png';
 
-        $message = "<img src='../view/images/logo.png'>";
+        $message = "<img src='../customer_view/images/logo.png'>";
         $message.= "<h3 style='font-style: italic'>Billed to:</h3>";
         $message.= "<h4>{$name} of {$com_name}</h4>";
         $message .= "<h5>Shipping Address: {$address}</h5>";
@@ -99,8 +99,8 @@ function sendMail($cust_mail, $message, $cust_name, $subject){
         $mail->msgHTML($message);
         $mail->AltBody = 'Payment Confirmation';
         if($mail->send()){
-            header("Location: ../view/receipt_info.php");
+            header("Location: ../customer_view/receipt_info.php");
         }else{
-            header("Location: ../view/products.php");
+            header("Location: ../customer_view/products.php");
         }
 }

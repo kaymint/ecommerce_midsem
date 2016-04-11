@@ -42,9 +42,9 @@ function login(){
             $_SESSION['admin_firstname'] = $row['firstname'];
             $_SESSION['admin_lastname'] = $row['lastname'];
 
-            header("Location: ../view/admin_page/home.php");
+            header("Location: ../customer_view/admin_page/home.php");
         }else{
-            header("Location: ../view/admin_page/login.php");
+            header("Location: ../customer_view/admin_page/login.php");
         }
     }
 }

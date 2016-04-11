@@ -57,10 +57,10 @@ function updateInventory(){
 
         if($res != false){
             $_SESSION['message'] = 'Added Succesfully';
-            header("Location: ../view/admin_page/home.php");
+            header("Location: ../customer_view/admin_page/home.php");
         }else{
             $_SESSION['message'] = 'Add Unsuccesful';
-            header("Location: ../view/admin_page/home.php");
+            header("Location: ../customer_view/admin_page/home.php");
         }
     }
 }
@@ -97,10 +97,10 @@ function addInventory(){
 
         if($res != false){
             $_SESSION['message'] = 'Added Succesfully';
-            header("Location: ../view/admin_page/add.php");
+            header("Location: ../customer_view/admin_page/add.php");
         }else{
             $_SESSION['message'] = 'Add Unsuccesful';
-            header("Location: ../view/admin_page/add.php");
+            header("Location: ../customer_view/admin_page/add.php");
         }
     }
 }

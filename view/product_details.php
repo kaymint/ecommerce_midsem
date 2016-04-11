@@ -27,7 +27,7 @@ if(isset($_REQUEST['cmd'])){
 
     switch ($cmd){
         case 1:
-            //view by category
+            //customer_view by category
             if(isset($_REQUEST['fid'])){
                 $fid = intval($_REQUEST['fid']);
                 $result = $furniture->getProduct($fid);
@@ -37,7 +37,7 @@ if(isset($_REQUEST['cmd'])){
 
             break;
         case 2:
-            //view by brandname
+            //customer_view by brandname
             break;
         case 3:
             break;

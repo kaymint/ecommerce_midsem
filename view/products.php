@@ -146,7 +146,7 @@ if(isset($_REQUEST['cmd'])){
 
     switch ($cmd){
         case 1:
-            //view by category
+            //customer_view by category
             if(isset($_REQUEST['cat'])){
                 $cat = intval($_REQUEST['cat']);
                 $result = $furniture->viewByCategory($cat ,$limit);
@@ -155,7 +155,7 @@ if(isset($_REQUEST['cmd'])){
 
             break;
         case 2:
-            //view by brandname
+            //customer_view by brandname
             if(isset($_REQUEST['brand'])){
                 $brand = intval($_REQUEST['brand']);
                 $result = $furniture->viewByBrandName($brand ,$limit);
@@ -165,7 +165,7 @@ if(isset($_REQUEST['cmd'])){
         case 3:
             break;
         case 4:
-            //view by brandname
+            //customer_view by brandname
             if(isset($_REQUEST['st'])){
                 $name = $_REQUEST['st'];
                 $result = $furniture->searchByName($name ,$limit);
