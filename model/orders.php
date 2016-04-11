@@ -383,6 +383,23 @@ class orders extends adb_object
     }
 
 
+    function getTotals(){
+
+        $str_query = "SELECT SUM(total_cost) AS totalSales FROM receipts WHERE paid='PAID'";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
     function getSalesCount(){
         //sql query
         $str_query = "SELECT

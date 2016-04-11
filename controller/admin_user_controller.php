@@ -48,3 +48,12 @@ function login(){
         }
     }
 }
+
+//sanitize command sent
+function sanitize_string($val){
+    $val = stripslashes($val);
+    $val = strip_tags($val);
+    $val = htmlentities($val);
+
+    return $val;
+}

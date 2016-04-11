@@ -52,9 +52,8 @@ function updateInventory(){
 
 
 
-        $furniture->addFurniture($type, $name, $desc, $cat,$brand, $image);
-        $fid = $furniture->get_insert_id();
-        $res = $furniture->addInventoryDetails($fid, $qty,  $cost);
+        $furniture->updateFurniture($type, $name, $desc, $cat,$brand, $image, $fid);
+        $res = $furniture->updateInventory($fid, $qty,  $cost);
 
         if($res != false){
             $_SESSION['message'] = 'Added Succesfully';

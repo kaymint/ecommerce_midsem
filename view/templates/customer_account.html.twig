@@ -26,15 +26,45 @@
                     <div class="signup-form"><!--sign up form-->
                         <h1>My Profile</h1>
                         <form action="" method="">
-                            <h2>Username: </h2>
-                            <h2>Title: </h2>
-                            <h2>First Name: </h2>
-                            <h2>Last Name: </h2>
-                            <h2>Email: </h2>
-                            <h2>Address: </h2>
-                            <h2>Date of Birth: </h2>
-                            <h2>City: </h2>
-                            <h2>Phone: </h2>
+                            <div class="row">
+                                <h4 class="col-xs-4"> Username: </h4>
+                                <p class="col-xs-6">{{ username }}</p>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-xs-4"> Title: </h4>
+                                <p class="col-xs-6">{{ title }}</p>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-xs-4"> First Name: </h4>
+                                <p class="col-xs-6">{{ fname }}</p>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-xs-4"> Last Name: </h4>
+                                <p class="col-xs-6">{{ lname }}</p>
+                            </div>
+                            <div class="row">
+                                <h4 class="col-xs-4"> Address: </h4>
+                                <p class="col-xs-6">{{ address }}</p>
+                            </div>
+
+                            <div class="row">
+                                <h4 class="col-xs-4"> Phone </h4>
+                                <p class="col-xs-6">{{ phone }}</p>
+                            </div>
+                        </form>
+                    </div><!--/sign up form-->
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="signup-form"><!--sign up form-->
+                        <h1>Change Password</h1>
+                        <form action="../controller/customer_controller.php" method="post">
+                            <div class="row">
+                                <h4 class="col-xs-4">New Password </h4>
+                                <input type="hidden" name="cmd" value="1">
+                                <input type="password" name="pass" placeholder="New Password">
+                            </div>
+                           <input type="submit" value="Change">
                         </form>
                     </div><!--/sign up form-->
                 </div>

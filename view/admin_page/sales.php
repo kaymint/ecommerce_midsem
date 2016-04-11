@@ -65,6 +65,10 @@ $result = $orders->getNumOrders();
 $nOrders = $result->fetch_assoc();
 $params['order_count'] = $nOrders['numOrders'];
 
+//get Total Sales
+$result = $orders->getTotals();
+$nTotals = $result->fetch_assoc();
+$params['totalSales'] = $nTotals['totalSales'];
 
 //get sales
 $result = $orders->getNumSales();

@@ -26,5 +26,20 @@ $template =$twig->loadTemplate('customer_account.html.twig');
 $params = array();
 
 
+if(isset($_SESSION['cust_id'])){
+    $params['username'] = $_SESSION['username'];
+    $params['fname'] = $_SESSION['fname'];
+    $params['lname'] = $_SESSION['lname'];
+    $params['email'] = $_SESSION['email'];
+    $params['address'] = $_SESSION['address'];
+    $params['phone'] = $_SESSION['phone'];
+    $params['title'] = $_SESSION['title'];
+}
+
+
+
+
+
+
 
 $template->display($params);

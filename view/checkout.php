@@ -107,7 +107,7 @@ isset($_POST['rec_lastname']) && isset($_POST['rec_phone'])
         $f->updateQuantity($fid, $onhand);
     }
 
-    header("Location: receipt_info.php");
+    header("Location: ../controller/order_controller.php?cmd=2");
 }
 
 

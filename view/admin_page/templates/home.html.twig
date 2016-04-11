@@ -142,7 +142,7 @@
                 <li>
                     <a href="sales.php">
                         <i class="fa fa-calendar"></i> <span>Sales</span>
-                        <small class="label pull-right bg-red">3</small>
+                        <small class="label pull-right bg-red">{{ sales_count }}</small>
                     </a>
                 </li>
 
@@ -256,11 +256,9 @@
                                 {% for x in furniture %}
                                 <tr>
                                     <td>
-                                        <a class="btn btn-social-icon btn-bitbucket">
+                                        <a class="btn btn-social-icon btn-bitbucket"
+                                        href="update.php?fid={{ x.furniture_id }}">
                                             <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-social-icon btn-google">
-                                            <i class="fa fa-search"></i>
                                         </a>
                                     </td>
                                     <td>{{ x.name }}</td>

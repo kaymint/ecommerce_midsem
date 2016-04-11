@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 /**
  * Created by PhpStorm.
  * User: StreetHustling
@@ -341,7 +342,7 @@ class furniture extends adb_object{
                       INNER JOIN brands B
                       ON B.brand_id = F.brand_id
                       AND F.furniture_id = ?
-                      ORDER BY F.brand_id";
+                      ORDER BY F.name";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -372,7 +373,7 @@ class furniture extends adb_object{
                       ON C.category_id = F.category
                       INNER JOIN brands B
                       ON B.brand_id = F.brand_id
-                      ORDER BY F.brand_id";
+                      ORDER BY F.name";
 
         $str_query .= " ". $limit;
 

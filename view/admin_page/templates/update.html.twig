@@ -14,10 +14,11 @@
                 <!-- form start -->
                 <form role="form" action="../../controller/furniture_controller.php" method="post">
                     <div class="box-body">
-                        <input type="hidden" value="1" name="cmd">
+                        <input type="hidden" value="2" name="cmd">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Name</label>
-                            <input type="text" required class="form-control" id="exampleInputEmail1" name="name" placeholder="Enter name">
+                            <input type="text" required class="form-control" id="exampleInputEmail1" name="name" placeholder="Enter name"
+                            value="{{ prod.brand_name }} {{ prod.name }} {{ prod.furniture_type }}">
                         </div>
 
                         <!-- select -->
@@ -52,17 +53,21 @@
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">Cost</label>
-                            <input type="number" required class="form-control" id="exampleInputPassword1" name="cost" placeholder="Cost">
+                            <input type="number" required class="form-control" id="exampleInputPassword1" name="cost" placeholder="Cost"
+                            value="{{ prod.cost }}">
                         </div>
                         <!-- textarea -->
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control" required rows="3" name="desc" placeholder="Enter Description"></textarea>
+                            <textarea class="form-control" required rows="3" name="desc" placeholder="Enter Description">
+                                {{ prod.description }}
+                            </textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">Quantity</label>
-                            <input type="number" class="form-control" required id="exampleInputPassword1" name="onhand" placeholder="Quantity">
+                            <input type="number" class="form-control" required id="exampleInputPassword1" name="onhand" placeholder="Quantity"
+                            value="{{ prod.onhand }}">
                         </div>
                     </div><!-- /.box-body -->
 

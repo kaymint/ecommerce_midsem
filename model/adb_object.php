@@ -34,6 +34,7 @@ class adb_object{
         }
 
         if($this->mysqli->connect_errno){
+
             printf("Connection failed %s\n", $this->mysqli->error);
             exit();
         }
